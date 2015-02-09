@@ -285,10 +285,10 @@ class Server
     protected function setImapStream()
     {
         if (isset($this->imapStream)) {
-            if (!imap_reopen($this->imapStream, $this->getServerString(), $this->options, 1, array("DISABLE_AUTHENTICATOR" => "GSSAPI")))
+            if (!imap_reopen($this->imapStream, $this->getServerString(), $this->options, 1))
                 throw new \RuntimeException(imap_last_error());
         } else {
-            $imapStream = imap_open($this->getServerString(), $this->username, $this->password, $this->options, 1);
+            $imapStream = imap_open($this->getServerString(), $this->username, $this->password, $this->options, 1, array("DISABLE_AUTHENTICATOR" => "GSSAPI"));
 
             if ($imapStream === false)
                 throw new \RuntimeException(imap_last_error());
